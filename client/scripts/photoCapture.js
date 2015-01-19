@@ -22,7 +22,19 @@ window.addEventListener('DOMContentLoaded', function() {
                   contentType: 'application/x-www-form-urlencoded',
                   dataType: 'json',
                   success: function (msg) {
-                      console.log('we got it back');
+                    console.log('this is a post success');
+                    // console.log('this is the success results ', msg);
+                    var name = msg.name;
+                    console.log('this is the name from msg ', name);
+                    function OpenInNewTab(url) {
+                      var win = window.open(url, '_blank');
+                      win.focus();
+                    }
+                    OpenInNewTab('http://www.google.com')
+                  },
+                  error: function(jq, err) {
+                    console.log('this is the jq', jq);
+                    console.log('this is the err ', err);
                   }
               });
 

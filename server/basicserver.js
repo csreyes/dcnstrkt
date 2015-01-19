@@ -22,6 +22,8 @@ function base64_decode(base64str, file) {
     console.log('******** File created from base64 encoded string ********');
 }
 
+var complete = false
+
 var getting = function(req, res, token) {
 	var baseurl = "https://camfind.p.mashape.com/image_responses/"
 	var geturl = baseurl.concat(token);
@@ -33,13 +35,15 @@ var getting = function(req, res, token) {
 	.end(function (result) {
 	  // console.log(result.status, result.headers, result.body);
 	  var status = result.body.status;
-	  while (status === "not completed") {
-	  	getting(req,res,token)
+	  if (status === "not completed") {
+	  	return getting(req,res,token)
 	  }
 	  var name = result.body.name;
+	  name = JSON.stringify({name : name});
 	  console.log('this is the status ', status);
 	  console.log('this is the name ', name);
-		res.send(200);
+		res.status(200).send(name);
+		return;
 	});
 };
 
@@ -60,7 +64,8 @@ var posting = function(req, res) {
 	  console.log('here is the body ', result.body);
 	  console.log('here is the token ', result.body.token)
 	  var token = result.body.token;
-	  res.send(200);
+	  // res.send(200);
+	  getting(req, res, token);
 	  console.log('i still get executed !!!')
 	});
 };
