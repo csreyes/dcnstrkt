@@ -1,0 +1,21 @@
+<!doctype html>
+<html ng-app="dcnstrkt">
+  <head>
+  	<meta charset="urf-8"/>
+  	<title>Dcnstrtk</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+  </head>
+  <body ng-controller="MainController">
+    <div ng-model="send" ng-click="click()">post</div>
+    <video id="sourcevid" autoplay height="500" width="500"></video>
+    <canvas style='display:none' height="300" width="500" id="canvas"></canvas>
+    <br/>
+    <button id="snap">Snapshot</button>
+    <script>
+    </script>
+
+  	<script src="scripts/app.js"></script>
+    <script src="scripts/photoCapture.js"></script>
+  </body>
+</html>
