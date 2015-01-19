@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', function() {
                   contentType: 'application/x-www-form-urlencoded',
                   dataType: 'json',
                   success: function (msg) {
-                      alert("Done, Picture Uploaded.");
+                      console.log('we got it back');
                   }
               });
 

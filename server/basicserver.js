@@ -22,6 +22,27 @@ function base64_decode(base64str, file) {
     console.log('******** File created from base64 encoded string ********');
 }
 
+var getting = function(req, res, token) {
+	var baseurl = "https://camfind.p.mashape.com/image_responses/"
+	var geturl = baseurl.concat(token);
+	console.log(geturl);
+	console.log(typeof geturl)
+	unirest.get(geturl)
+	.header("X-Mashape-Key", "skG4sxWdqlmshwek4d002jlqlFXrp16ucoQjsng5Liv2LR1Cms")
+	.header("Accept", "application/json")
+	.end(function (result) {
+	  // console.log(result.status, result.headers, result.body);
+	  var status = result.body.status;
+	  while (status === "not completed") {
+	  	getting(req,res,token)
+	  }
+	  var name = result.body.name;
+	  console.log('this is the status ', status);
+	  console.log('this is the name ', name);
+		res.send(200);
+	});
+};
+
 
 var posting = function(req, res) {
 	unirest.post("https://camfind.p.mashape.com/image_requests")
@@ -38,17 +59,19 @@ var posting = function(req, res) {
 	.end(function (result) {
 	  console.log('here is the body ', result.body);
 	  console.log('here is the token ', result.body.token)
+	  var token = result.body.token;
 	  res.send(200);
 	  console.log('i still get executed !!!')
 	});
 };
 
 app.post('/', function(req,res) {
-	console.log(456545465);
-	console.log(typeof req.body.base64)
-	var base64str = req.body.base64;
-	base64_decode(base64str, 'test.png')
-	posting(req,res)
+	// console.log(456545465);
+	// console.log(typeof req.body.base64)
+	// var base64str = req.body.base64;
+	// base64_decode(base64str, 'test.png')
+	// posting(req,res)
+	getting(req,res,"FXzbk8SgbT8x0FX0BpTCAQ");
 })
 
 
