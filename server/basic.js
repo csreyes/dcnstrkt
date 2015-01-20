@@ -68,7 +68,9 @@ var getName = function(req, res, token) {
 
 
 var opHelper = new OperationHelper({
-
+    awsId:     'AKIAIMHH626LYHUYU54Q',
+    awsSecret: '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',
+    assocId:   'csreyescom-20'
 });
 
 var getAmazonUrl = function(req, res, name) {
@@ -98,21 +100,20 @@ var googling = function(req, res, name) {
   google(searchString, function(err, next, links){
     if (err) console.error(err);
     firstLink = links[0].link
-    console.log(links.slice(0,5))
     res.status(200).send(JSON.stringify(firstLink));
   })
 }
 
 app.post('/post', function(req,res) {
 
-  var base64str = req.body.base64;
-  base64_decode(base64str, 'test.png')
-  postImage(req,res)
+  // var base64str = req.body.base64;
+  // base64_decode(base64str, 'test.png')
+  // postImage(req,res)
 
   // getName(req,res,'kCY_H7FMip7kMdJ84X6DbQ')
 
   // return getName(req,res,"gSLFG7WvYug_hv4Fb7eg1w")
-?
+  res.status(200).send(); //delete when done with FRONTEND;
 })
 
 
