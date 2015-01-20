@@ -4,7 +4,8 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var unirest = require('unirest');
 var fs = require('fs');
-
+var OperationHelper = require('apac').OperationHelper;
+var util = require('util');
 var app = express();
 
 
@@ -39,13 +40,35 @@ var getting = function(req, res, token) {
 	  	return getting(req,res,token)
 	  }
 	  var name = result.body.name;
-	  name = JSON.stringify({name : name});
+	  // name = JSON.stringify({name : name});
 	  console.log('this is the status ', status);
 	  console.log('this is the name ', name);
-		res.status(200).send(name);
+		// res.status(200).send(name);
+		getListing(req, res, name)
 		return;
 	});
 };
+
+var opHelper = new OperationHelper({
+    awsId:     'AKIAJ3VXWMRPLLCDKJDQ',
+    awsSecret: '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',
+    assocId:   'csreyescom-20'
+});
+
+var getListing = function(req, res, name) {
+	opHelper.execute('ItemSearch', {
+	    'SearchIndex': 'All',
+	    'Keywords': name,
+	    'ResponseGroup': 'ItemAttributes,Offers'
+	}, function(error, results) {
+	    if (error) { 
+	    	console.log('Error: ' + error + "\n"); 
+	    	res.status(404).send(error);
+	    }
+	    // console.log("Results:\n" + util.inspect(results) + "\n");
+	    res.status(200).send(results)
+	});
+}
 
 
 var posting = function(req, res) {
@@ -71,12 +94,13 @@ var posting = function(req, res) {
 };
 
 app.post('/', function(req,res) {
-	// console.log(456545465);
-	// console.log(typeof req.body.base64)
-	// var base64str = req.body.base64;
-	// base64_decode(base64str, 'test.png')
-	// posting(req,res)
-	getting(req,res,"FXzbk8SgbT8x0FX0BpTCAQ");
+	console.log(456545465);
+	console.log(typeof req.body.base64)
+	var base64str = req.body.base64;
+	base64_decode(base64str, 'test.png')
+	posting(req,res)
+	// getting(req,res,"FXzbk8SgbT8x0FX0BpTCAQ");
+	// getListing(req, res);
 })
 
 

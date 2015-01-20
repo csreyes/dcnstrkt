@@ -21,16 +21,17 @@ window.addEventListener('DOMContentLoaded', function() {
                   data: {'base64': base64},
                   contentType: 'application/x-www-form-urlencoded',
                   dataType: 'json',
-                  success: function (msg) {
+                  success: function (results) {
                     console.log('this is a post success');
                     // console.log('this is the success results ', msg);
-                    var name = msg.name;
-                    console.log('this is the name from msg ', name);
+                    var item = results.ItemSearchResponse.Items[0].Item[0].DetailPageURL[0]
+                    console.log(item)
+                    // var url = item.DetailPageUrl[0]
                     function OpenInNewTab(url) {
                       var win = window.open(url, '_blank');
                       win.focus();
                     }
-                    OpenInNewTab('http://www.google.com')
+                    OpenInNewTab(item);
                   },
                   error: function(jq, err) {
                     console.log('this is the jq', jq);
