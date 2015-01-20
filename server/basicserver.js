@@ -50,9 +50,9 @@ var getting = function(req, res, token) {
 };
 
 var opHelper = new OperationHelper({
-    awsId:     '',
-    awsSecret: '',
-    assocId:   ''
+    awsId:     'AKIAIMHH626LYHUYU54Q',
+    awsSecret: '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',
+    assocId:   'csreyescom-20'
 });
 
 var getListing = function(req, res, name) {
