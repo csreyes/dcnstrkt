@@ -3,11 +3,19 @@ var partials = require('express-partials');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var unirest = require('unirest');
+var rest = require('restler');
+var crypto = require('crypto');
 var fs = require('fs');
 var OperationHelper = require('apac').OperationHelper;
 var util = require('util');
+var request = require('request');
 var app = express();
+var google = require('google');
+google.resultsPerPage = 25;
 
+var fatSecretRestUrl = 'http://platform.fatsecret.com/rest/server.api';
+var apiKey = 'e16802339b9e4ca597c5d2ba08904b81';
+var sharedSecret = '322d34f470fb45a1aa5a77fc822a4c66';
 
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.json({limit: '50mb'}))
@@ -44,7 +52,8 @@ var getting = function(req, res, token) {
 	  console.log('this is the status ', status);
 	  console.log('this is the name ', name);
 		// res.status(200).send(name);
-		getListing(req, res, name)
+		getFood(req, res, name);
+		// getListing(req, res, name)
 		return;
 	});
 };
@@ -71,6 +80,50 @@ var getListing = function(req, res, name) {
 }
 
 
+
+// var getFood = function(req, res, name) {
+// 	var date = new Date;
+// 	var reqObj = {
+// 	  method: 'foods.search',
+// 	  oauth_consumer_key: apiKey,
+// 	  oauth_nonce: Math.random().toString(36).replace(/[^a-z]/, '').substr(2),
+// 	  oauth_signature_method: 'HMAC-SHA1',
+// 	  oauth_timestamp: Math.floor(date.getTime() / 1000),
+// 	  oauth_version: '1.0',
+// 	  search_expression: name // test query
+// 	};
+// 	var paramsStr = '';
+// 	for (var i in reqObj) {
+// 	  paramsStr += "&" + i + "=" + reqObj[i];
+// 	}
+// 	paramsStr = paramsStr.substr(1);
+// 	var sigBaseStr = "POST&"
+// 	                 + encodeURIComponent(fatSecretRestUrl)
+// 	                 + "&"
+// 	                 + encodeURIComponent(paramsStr);
+// 	sharedSecret += "&";
+// 	var hashedBaseStr  = crypto.createHmac('sha1', sharedSecret).update(sigBaseStr).digest('base64');
+// 	reqObj.oauth_signature = hashedBaseStr;
+// 	rest.post(fatSecretRestUrl, {
+// 	  data: reqObj,
+// 	}).on('complete', function(data, response) {
+// 	  // console.log(response);
+// 	  // console.log("DATA: " + data + "\n");
+// 	  res.status(200).send(JSON.stringify(data));
+// 	});
+// };
+
+	
+
+	// }).on('complete', function(data, response) {
+	//   console.log(response);
+	//   console.log("DATA: " + data);
+	//   res.status(200).send(response);
+	// });
+
+
+
+
 var posting = function(req, res) {
 	unirest.post("https://camfind.p.mashape.com/image_requests")
 	.header("X-Mashape-Key", "skG4sxWdqlmshwek4d002jlqlFXrp16ucoQjsng5Liv2LR1Cms")
@@ -93,14 +146,29 @@ var posting = function(req, res) {
 	});
 };
 
+var googling = function(req, res, name) {
+	google(name, function(err, next, links){
+	  if (err) console.error(err);
+	  console.log(typeof links[0].link)
+	  firstLink = links[0].link
+
+		res.status(200).send(JSON.stringify(firstLink));
+
+	})
+
+}
+
 app.post('/', function(req,res) {
-	console.log(456545465);
-	console.log(typeof req.body.base64)
-	var base64str = req.body.base64;
-	base64_decode(base64str, 'test.png')
-	posting(req,res)
+	// console.log(456545465);
+	// console.log(typeof req.body.base64)
+	// var base64str = req.body.base64;
+	// base64_decode(base64str, 'test.png')
+	// posting(req,res)
 	// getting(req,res,"FXzbk8SgbT8x0FX0BpTCAQ");
 	// getListing(req, res);
+	// getFood(req, res);
+	// getFood(req, res, "banana");
+	googling(req, res, "almond butter amazon");
 })
 
 

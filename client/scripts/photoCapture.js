@@ -24,14 +24,15 @@ window.addEventListener('DOMContentLoaded', function() {
                   success: function (results) {
                     console.log('this is a post success');
                     // console.log('this is the success results ', msg);
-                    var item = results.ItemSearchResponse.Items[0].Item[0].DetailPageURL[0]
-                    console.log(item)
-                    // var url = item.DetailPageUrl[0]
+                    // var item = results.ItemSearchResponse.Items[0].Item[0].DetailPageURL[0]
+                    // console.log(item)
                     function OpenInNewTab(url) {
                       var win = window.open(url, '_blank');
                       win.focus();
                     }
-                    OpenInNewTab(item);
+                    // console.log(results, 'here are the results')
+                    console.log(results);
+                    // OpenInNewTab(string);
                   },
                   error: function(jq, err) {
                     console.log('this is the jq', jq);
