@@ -12,27 +12,28 @@ window.addEventListener('DOMContentLoaded', function() {
   document.querySelector('button').addEventListener('click',function(){
           snapshot.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
           pic = snapshot.toDataURL("image/png");
-          
+
+          var category = 'amazon' || 'something'
+           
           base64 = pic.replace(/^data:image\/(png|jpg);base64,/, "");
 
           $.ajax({
                   type: 'POST',
-                  url: '/',
-                  data: {'base64': base64},
+                  url: '/post',
+                  data: {'base64': base64,
+                        'category': category
+                },
                   contentType: 'application/x-www-form-urlencoded',
                   dataType: 'json',
-                  success: function (results) {
-                    console.log('this is a post success');
-                    // console.log('this is the success results ', msg);
-                    // var item = results.ItemSearchResponse.Items[0].Item[0].DetailPageURL[0]
-                    // console.log(item)
+                  success: function (url) {
+                    console.log('this is a post success and here is the url ', url);
+
                     function OpenInNewTab(url) {
                       var win = window.open(url, '_blank');
                       win.focus();
                     }
-                    // console.log(results, 'here are the results')
-                    console.log(results);
-                    // OpenInNewTab(string);
+
+                    OpenInNewTab(url);
                   },
                   error: function(jq, err) {
                     console.log('this is the jq', jq);

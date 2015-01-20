@@ -52,8 +52,8 @@ var getting = function(req, res, token) {
 	  console.log('this is the status ', status);
 	  console.log('this is the name ', name);
 		// res.status(200).send(name);
-		getFood(req, res, name);
-		// getListing(req, res, name)
+		// getFood(req, res, name);
+		getListing(req, res, name)
 		return;
 	});
 };
@@ -75,7 +75,8 @@ var getListing = function(req, res, name) {
 	    	res.status(404).send(error);
 	    }
 	    // console.log("Results:\n" + util.inspect(results) + "\n");
-	    res.status(200).send(results)
+	    var itemUrl = results.ItemSearchResponse.Items[0].Item[0].DetailPageURL[0];
+	    res.status(200).send(itemUrl);
 	});
 }
 
@@ -137,12 +138,8 @@ var posting = function(req, res) {
 	.field("image_request[longitude]", "14.3583203002251")
 	// .field("image_request[remote_image_url]", "http://www.endlesssimmer.com/wp-content/uploads/2013/02/cantina_steak_burrito.jpg")
 	.end(function (result) {
-	  console.log('here is the body ', result.body);
-	  console.log('here is the token ', result.body.token)
 	  var token = result.body.token;
-	  // res.send(200);
 	  getting(req, res, token);
-	  console.log('i still get executed !!!')
 	});
 };
 
@@ -151,24 +148,23 @@ var googling = function(req, res, name) {
 	  if (err) console.error(err);
 	  console.log(typeof links[0].link)
 	  firstLink = links[0].link
-
 		res.status(200).send(JSON.stringify(firstLink));
-
 	})
-
 }
 
 app.post('/', function(req,res) {
-	// console.log(456545465);
-	// console.log(typeof req.body.base64)
+
 	// var base64str = req.body.base64;
 	// base64_decode(base64str, 'test.png')
 	// posting(req,res)
+
+	console.log(req.body.category);
+
 	// getting(req,res,"FXzbk8SgbT8x0FX0BpTCAQ");
 	// getListing(req, res);
 	// getFood(req, res);
 	// getFood(req, res, "banana");
-	googling(req, res, "almond butter amazon");
+	// googling(req, res, "almond butter amazon");
 })
 
 
