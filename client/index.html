@@ -3,25 +3,31 @@
   <head>
   	<meta charset="urf-8"/>
   	<title>Dcnstrtk</title>
+    <div class="title">
+      <h1>DCNSTRKT</h1>
+    </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="http://fgnass.github.io/spin.js/spin.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
 
+
   </head>
+
   <body ng-controller="MainController">
-    <video id="sourcevid" autoplay height="600" width="600"></video>
-    <canvas  style="display:none" height="300" width="500" id="canvas"></canvas>
+    <div class="videoContainer" data-transition="fade">
+      <video id="sourcevid" autoplay height="600" width="600" class="img-circle"></video>
+      <canvas  style="display:none" height="300" width="500" id="canvas"></canvas>      
+    </div>
     <div class="postButtons">
-      <button ng-click="click('amazon')">Get Product Info</button>
-      <button ng-click="click('nutrition')">Get Nutritional Info</button>
-      <button ng-click="click('ebay')">Get Auction Info</button>
+      <button class="btn btn-warning" ng-click="click('amazon')">Get Product Info</button>
+      <button class="btn btn-primary" ng-click="click('nutrition')">Get Nutritional Info</button>
+      <button class="btn btn-success" ng-click="click('ebay')">Get Auction Info</button>
       <input type="text" ng-model="getOtherInfo"/>
-      <button ng-click="click(getOtherInfo)">Other</button>
+      <button class="btn btn-default" ng-click="click(getOtherInfo)">Other</button>
     </div>
     <br/>
-    <script>
-    </script>
 
   	<script src="scripts/app.js"></script>
     <script src="scripts/photoCapture.js"></script>

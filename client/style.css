@@ -1,15 +1,41 @@
+body {
+	background-color: gray;
+	background-image: url("http://www.bluewatercrossfit.com/wp-content/uploads/2013/07/dark_spot_background_texture_50611_1920x1080.jpg");
+}
+
+title {
+	width: 300px;
+	padding: 25px;
+	border: 25px solid navy;
+	margin: 25px;}
+
+h1 {
+	font-family: "Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 50px;
+}
+
 .postButtons {
 	position:relative;
 	margin:0 auto;
 	clear:left;
 	height:auto;
 	z-index: 0;
-	text-align:center
+	text-align:center;
+	padding-top: 20px;
 }
 
 video {
 	position: relative;
-	padding: 30px;
 	text-align: center;
+	margin-left: 420px;
+	
+}
+
+.videoContainer {
+	background-color: black;
+	height: 550px;
 	
 }

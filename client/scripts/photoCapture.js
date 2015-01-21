@@ -4,6 +4,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
              navigator.mozGetUserMedia || navigator.msGetUserMedia);
   }
+  
 
 	if (hasGetUserMedia()) {
 	  console.log('we good !')
@@ -15,4 +16,5 @@ window.addEventListener('DOMContentLoaded', function() {
 	} else {
 	  alert('getUserMedia() is not supported in your browser');
 	}
+
 }) 

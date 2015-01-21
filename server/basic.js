@@ -45,7 +45,7 @@ var getName = function(req, res, token) {
   var baseurl = "https://camfind.p.mashape.com/image_responses/"
   var geturl = baseurl.concat(token);
   unirest.get(geturl)
-  .header("X-Mashape-Key", "skG4sxWdqlmshwek4d002jlqlFXrp16ucoQjsng5Liv2LR1Cms")
+  .header("X-Mashape-Key", "mashapekey")
   .header("Accept", "application/json")
   .end(function (result) {
     var status = result.body.status;
@@ -68,8 +68,8 @@ var getName = function(req, res, token) {
 
 
 var opHelper = new OperationHelper({
-    awsId:     'AKIAIMHH626LYHUYU54Q',
-    awsSecret: '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',
+    awsId:     'id',
+    awsSecret: 'secret',
     assocId:   'csreyescom-20'
 });
 
@@ -113,7 +113,7 @@ app.post('/post', function(req,res) {
   // getName(req,res,'kCY_H7FMip7kMdJ84X6DbQ')
 
   // return getName(req,res,"gSLFG7WvYug_hv4Fb7eg1w")
-  res.status(200).send(); //delete when done with FRONTEND;
+  res.end(200); //delete when done with FRONTEND;
 })
 
 
